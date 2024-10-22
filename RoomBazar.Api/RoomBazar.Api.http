@@ -1,0 +1,6 @@
+@RoomBazar.Api_HostAddress = http://localhost:5027
+
+GET {{RoomBazar.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
