@@ -33,7 +33,6 @@ public class RefreshTokenService : IRefreshTokenService
         var storedToken = await this.repostory.SelecAll()
             .Include(rt => rt.Register)
             .Where(t => t.Token == refreshToken.RefreshToken)
-            .AsNoTracking()
             .FirstOrDefaultAsync();
 
         if (storedToken == null || storedToken.ExpiryDate < DateTime.UtcNow)
@@ -48,6 +47,8 @@ public class RefreshTokenService : IRefreshTokenService
         storedToken.Token = newRefreshToken;
         storedToken.ExpiryDate = DateTime.UtcNow.AddMinutes(2);
 
+
+        
         await this.appDbContext.SaveChangesAsync();
 
         return new TokenForResultDto
